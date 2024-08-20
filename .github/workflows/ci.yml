@@ -1,18 +1,24 @@
-on: push
-
+name: Build SQLite3
+ 
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+ 
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
+ 
       - name: Build
         run: ./build.sh
-
+ 
       - id: date
         run: echo ::set-output name=date::$(date +'%Y%m%d')
-
+ 
       - name: Upload module to release
         uses: svenstaro/upload-release-action@v2
         with:
